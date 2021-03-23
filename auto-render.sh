@@ -20,10 +20,10 @@ for i in $(find $source -type f -name '*.RPP' | sed -r 's|/[^/]+$||' |sort |uniq
     
 	if [ $projects = "latest" ]; then
 		result=`ls -t $i/*.RPP | head -1`
-	    all_projects="$all_projects\n$result"
+		all_projects="$all_projects\n$result"
 	else
 		result=`ls -1 $i/*.RPP`
-	    all_projects="$all_projects\n$result"
+		all_projects="$all_projects\n$result"
 	fi
 done
 
