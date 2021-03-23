@@ -1,16 +1,31 @@
 #!/bin/bash
 
+function render {
+
+	TEMP=$(mktemp /tmp/tmp.XXXXXXXX)	
+	cp "$1" "$TEMP.RPP"
+
+	if [ ! -z "$preview" ]
+	then
+		sed -i.bak 's/RENDER_RANGE.*/RENDER_RANGE 0 0 30 16 1000/' "$TEMP.RPP"
+	fi
+
+	/Applications/REAPER64.app/Contents/MacOS/REAPER -renderproject "$TEMP.RPP"
+}
+
 source="."
 destination="."
 projects="latest"
+preview=""
 
-while getopts s:d:la flag
+while getopts s:d:lap flag
 do
     case "${flag}" in
         s) source=${OPTARG};;
         d) destination=${OPTARG};;
 		l) projects="latest";;
 		a) projects="all" ;;
+		p) preview="true" ;;
     esac
 done
 
@@ -34,7 +49,7 @@ while IFS= read -r line; do
 	if [ ! -z "$line" ]
 	then
 	      echo "Rendering: $line"
-	      /Applications/REAPER64.app/Contents/MacOS/REAPER -renderproject "$line"
+	      render "$line"
 	fi
 
 done <<< "$project_list"
