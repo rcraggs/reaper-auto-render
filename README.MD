@@ -4,11 +4,12 @@ Render all projects within a directory or only the latest project in each direct
 
 **Usage:**
 
-`./auto-render.sh -s <folder> -l|-a`
+`./auto-render.sh -s <folder> -p -l | -a`
 
 -s source-directory: The root folder to search recursively for projects (defaults to the current directory)
 -a : renders all Reaper projects within the source directory
 -l : renders only the latest (by modification date) project in each sub-directory
+-p : renders the first 30 seconds of each project, ignore the project's rendering settings
 
 **Example**
 
